@@ -1,0 +1,37 @@
+
+.video {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.video-background {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto;
+    z-index: -100;
+    transform: translate(-50%, -50%);
+    object-fit: cover; 
+}
+.row2 {
+    position: relative;
+    z-index: 1; 
+    color: white; 
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.font-size { 
+    font-size: 70px;
+ }
+.color-1 { 
+    color: rgb(220, 227, 25); 
+}
+.color-2 { 
+    color: yellowgreen;
+ }
+.color-3 {
+     color: green; 
+    }
