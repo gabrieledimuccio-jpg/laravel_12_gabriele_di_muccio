@@ -55,11 +55,23 @@
                                     <input type="text" id="best_time" name="best_time" class="form-control" placeholder="Inverno" value="{{ old('best_time', $article->best_time) }}" required>
                                 </div>
                             </div>
-
+                            
                             <div class="form-group">
                                 <label for="description">Itinerario</label>
                                 <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required>{{ old('description', $article->description) }}</textarea>
-                            </div>                            
+                            </div>         
+                            
+                            <div class="mb-3 mt-2 d-flex flex-wrap justify-content-start">
+                                @foreach($tags as $tag)
+                                <div class="form-check">
+                                    <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="checkDefault"
+                                    @if($article->tags->contains($tag)) checked @endif>
+                                    <label class="form-check-label me-5" for="checkDefault">
+                                        {{ $tag->name }}
+                                    </label>
+                                </div>
+                                @endforeach
+                            </div>
                             
                             <div class="form-actions mt-3">
                                 <a href="{{ route('show', $article) }}" class="btn btn-secondary">Annulla</a>

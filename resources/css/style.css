@@ -62,8 +62,15 @@ body {
     position: relative;
     bottom: 16.2px;
     left: 30px;
-    z-index: 9999;
+    z-index: 999;
 }
+.card-img-fixed {
+    height: 250px; 
+    object-fit: cover; 
+    width: 100%; 
+    
+}
+
 .articles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

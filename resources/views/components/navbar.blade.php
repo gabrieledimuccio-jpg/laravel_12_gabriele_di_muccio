@@ -7,11 +7,11 @@
                 <span class="text-uppercase fs-6 sub-brand">travel agency</span>
             </div>
         </a>
-
+        
         <button class="navbar-toggler border-white-50" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon icon-white"></span>
         </button>
-            
+        
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item px-2">

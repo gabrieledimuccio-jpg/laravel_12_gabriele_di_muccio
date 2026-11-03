@@ -32,24 +32,26 @@ $tags = Tag::all();
 return view('article.create', compact('tags'));
 }
 
+
+
 /**
 * Store a newly created resource in storage.
 */
 public function store(Request $request)
 {
-if ($request->hasFile('img')) {
-$img = $request->file('img')->store('img', 'public');
-} else {
-$img = 'media/default.jpeg'; 
-}
-
-Article::create([
+$article = Article::create([
 'title'       => $request->title,
 'subtitle'    => $request->subtitle,
 'best_time'   => $request->best_time,
 'description' => $request->description,
-'img'         => $img 
+'img'         => $request->img 
 ]);
+
+if ($request->hasFile('img')) {
+$article->img = $request->file('img')->store('img', 'public');
+} else {
+$article->img = 'media/default.jpeg'; 
+}
 
 $article->tags()->attach($request->tags);
 
@@ -73,7 +75,9 @@ return view('article.show', compact('article'));
 public function edit(Article $article)
 {
 //
-return view('article.edit', compact('article'));
+$tags = Tag::all();
+
+return view('article.edit', compact('article','tags'));
 }
 
 /**
@@ -96,7 +100,8 @@ unset($data['img']);
 }
 $article->update($data);
 
-return redirect()->route('show', $article)->with('success', 'Articolo aggiornato con successo!');
+$article->tags()->sync($request->tags);
+return redirect()->route('show', $article)->with('message', 'Articolo aggiornato con successo!');
 }
 
 /**
@@ -105,6 +110,7 @@ return redirect()->route('show', $article)->with('success', 'Articolo aggiornato
 public function destroy(Article $article)
 {
 //
+$article->tags()->detach();
 $article->delete();
 
 return redirect()->route('index')->with('success', 'Articolo eliminato con successo!');

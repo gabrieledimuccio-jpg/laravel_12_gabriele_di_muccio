@@ -9,20 +9,22 @@
             @forelse($articles as $article)
             
             <div class="article-card w-25 mb-3"> 
-                <img src="{{ Str::contains($article->img, 'media/') ? asset($article->img) : Storage::url($article->img) }}" class="card-img-top" alt="img articolo">
+                <img src="{{ Str::contains($article->img, 'media/') ? asset($article->img) : Storage::url($article->img) }}" class="card-img-top card-img-fixed" alt="img articolo">
                 <div class="card-body">
                     
                     <h2>{{ $article->title }}</h2>
                     <h3>{{ $article->subtitle }}</h3>
-                    @if($article->tags)
+                    @if($article->tags->isNotEmpty())
                     <div class="mb-3">
-                        <span class="badge text-bg-light"></span>
+                        @foreach($article->tags as $tag)
+                        <span class="badge text-bg-light">#{{ $tag->name }}</span>
+                        @endforeach
                     </div>
                     @endif
                 </div>
                 <div class="card-footer">
                     <span class="time2">{{ $article->best_time }}</span>
-                    <a href="{{ route('show', $article) }}" class="link-detail">Vedi Itinerario &rarr;</a>
+                    <a href="{{ route('show', $article) }}" class="link-detail ms-2">Vedi Itinerario | Modifica | Elimina &rarr;</a>
                 </div>
             </div>
             @empty
