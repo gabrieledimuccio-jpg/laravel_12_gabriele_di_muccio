@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -13,6 +14,10 @@ class Article extends Model
     'best_time',
     'description',
     'img',
-    'user_id',
+    
 ];
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

@@ -14,6 +14,11 @@
                     
                     <h2>{{ $article->title }}</h2>
                     <h3>{{ $article->subtitle }}</h3>
+                    @if($article->tags)
+                    <div class="mb-3">
+                        <span class="badge text-bg-light"></span>
+                    </div>
+                    @endif
                 </div>
                 <div class="card-footer">
                     <span class="time2">{{ $article->best_time }}</span>

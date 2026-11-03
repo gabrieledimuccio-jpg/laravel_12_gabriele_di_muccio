@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -13,9 +14,10 @@ class ArticleController extends Controller
 public function index()
 {
 //
+$articles = Article::all();
 $articles = Article::latest()->get();
 
-return view('index', compact('articles'));
+return view('article.index', compact('articles'));
 
 }
 
@@ -25,7 +27,9 @@ return view('index', compact('articles'));
 public function create()
 {
 //
-return view('create');
+$tags = Tag::all();
+
+return view('article.create', compact('tags'));
 }
 
 /**
@@ -47,6 +51,8 @@ Article::create([
 'img'         => $img 
 ]);
 
+$article->tags()->attach($request->tags);
+
 return redirect()->back()->with('message', 'Articolo inserito con successo');
 }
 
@@ -58,7 +64,7 @@ return redirect()->back()->with('message', 'Articolo inserito con successo');
 public function show(Article $article)
 {
 //
-return view('show', compact('article'));
+return view('article.show', compact('article'));
 }
 
 /**
@@ -67,7 +73,7 @@ return view('show', compact('article'));
 public function edit(Article $article)
 {
 //
-return view('edit', compact('article'));
+return view('article.edit', compact('article'));
 }
 
 /**
@@ -81,9 +87,13 @@ $data = $request->validate([
 'subtitle'         => 'required|string',
 'best_time'        => 'required|string',
 'description'      => 'required|string',
-'img'              => 'required|string',
+'img'              => 'nullable|image|max:2048',
 ]);
-
+if ($request->hasFile('img')) {
+$data['img'] = $request->file('img')->store('img', 'public');
+} else {
+unset($data['img']);
+}
 $article->update($data);
 
 return redirect()->route('show', $article)->with('success', 'Articolo aggiornato con successo!');

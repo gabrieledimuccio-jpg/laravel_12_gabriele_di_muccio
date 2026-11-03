@@ -27,40 +27,43 @@
                     </div>
                     
                     <div class="col-4">    
-                        <h2 class="text-center">Aggiungi una nuova destinazione</h2>  
-                        <form class="mt-3" action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+                        <h2 class="text-center">Modifica destinazione</h2>  
+                        <form action="{{ route('update', $article) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('PUT')
                             <div class="mb-3">
                                 <label for="img" class="form-label">Inserisci immagine</label>
-                                <input name="img" type="file" class="form-control d-flex me-3" id="img">
+                                <input name="img" type="file" class="form-control d-flex me-3" id="img" required>
+                            </div>
+                            <div class="mb-3">
+                                <span class="form-label">Immagine attuale:</span>
+                                <img src="{{ Storage::url($article->img) }}" alt="{{ $article->title }}" width="400" height="200" srcset="">
                             </div>
                             <div class="form-group">
                                 <label for="title">Meta</label>
-                                <input type="text" id="title" name="title" class="form-control" placeholder="Londra" required>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Londra" value="{{ old('title', $article->title) }}" required>
                             </div>
-                            
                             
                             <div class="form-group">
                                 <label for="subtitle">Sottotitolo</label>
-                                <textarea id="subtitle" name="subtitle" class="form-control" rows="3" placeholder="Patria del fish & chips" required></textarea>
+                                <textarea id="subtitle" name="subtitle" class="form-control" rows="3" placeholder="Patria del fish & chips" required>{{ old('subtitle', $article->subtitle) }}</textarea>
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="best_time">Best time</label>
-                                    <input type="text" id="best_time" name="best_time" class="form-control" placeholder="Inverno" required>
+                                    <input type="text" id="best_time" name="best_time" class="form-control" placeholder="Inverno" value="{{ old('best_time', $article->best_time) }}" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="description">Itinerario</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required></textarea>
-                            </div>
-                            
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required>{{ old('description', $article->description) }}</textarea>
+                            </div>                            
                             
                             <div class="form-actions mt-3">
-                                <a href="{{ route('index') }}" class="btn btn-secondary">Annulla</a>
-                                <button type="submit" class="btn btn-primary">Salva Destinazione</button>
+                                <a href="{{ route('show', $article) }}" class="btn btn-secondary">Annulla</a>
+                                <button type="submit" class="btn btn-primary">Aggiorna Articolo</button>
                             </div>
                         </form>
                     </div>

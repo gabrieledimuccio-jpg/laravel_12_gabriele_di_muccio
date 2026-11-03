@@ -27,40 +27,51 @@
                     </div>
                     
                     <div class="col-4">    
-                        <h2 class="text-center">Modifica destinazione</h2>  
-                        <form action="{{ route('update', $article) }}" method="POST" enctype="multipart/form-data">
+                        <h2 class="text-center">Aggiungi una nuova destinazione</h2>  
+                        <form class="mt-3" action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
                             <div class="mb-3">
                                 <label for="img" class="form-label">Inserisci immagine</label>
-                                <input name="img" type="file" class="form-control d-flex me-3" id="img" value="{{ old('img', $article->img) }}" required>
+                                <input name="img" type="file" class="form-control d-flex me-3" id="img">
                             </div>
-                            
                             <div class="form-group">
                                 <label for="title">Meta</label>
-                                <input type="text" id="title" name="title" class="form-control" placeholder="Londra" value="{{ old('title', $article->title) }}" required>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Londra" required>
                             </div>
+                            
                             
                             <div class="form-group">
                                 <label for="subtitle">Sottotitolo</label>
-                                <textarea id="subtitle" name="subtitle" class="form-control" rows="3" placeholder="Patria del fish & chips" value="{{ old('subtitle', $article->subtitle) }}" required></textarea>
+                                <textarea id="subtitle" name="subtitle" class="form-control" rows="3" placeholder="Patria del fish & chips" required></textarea>
                             </div>
                             
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="best_time">Best time</label>
-                                    <input type="text" id="best_time" name="best_time" class="form-control" placeholder="Inverno" value="{{ old('best_time', $article->best_time) }}" required>
+                                    <input type="text" id="best_time" name="best_time" class="form-control" placeholder="Inverno" required>
                                 </div>
                             </div>
-
+                            
                             <div class="form-group">
                                 <label for="description">Itinerario</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required>{{ old('description', $article->description) }}</textarea>
-                            </div>                            
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required></textarea>
+                            </div>
                             
-                            <div class="form-actions">
-                                <a href="{{ route('show', $article) }}" class="btn btn-secondary">Annulla</a>
-                                <button type="submit" class="btn btn-primary">Aggiorna Articolo</button>
+                            <h6 class="mt-2">Tags</h6>
+                            <div class="mb-3 mt-2 d-flex flex-wrap justify-content-start">
+                                @foreach($tags as $tag)
+                                <div class="form-check">
+                                    <input class="form-check-input" name="tags[]" type="checkbox" value="{{ $tag->id }}" id="checkDefault">
+                                    <label class="form-check-label me-5" for="checkDefault">
+                                        {{ $tag->name }}
+                                    </label>
+                                </div>
+                                @endforeach
+                            </div>
+                            
+                            <div class="form-actions mt-3">
+                                <a href="{{ route('index') }}" class="btn btn-secondary">Annulla</a>
+                                <button type="submit" class="btn btn-primary">Salva Destinazione</button>
                             </div>
                         </form>
                     </div>
