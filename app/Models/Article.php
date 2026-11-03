@@ -11,6 +11,7 @@ class Article extends Model
     'title',
     'subtitle',
     'best_time',
+    'description',
     'img',
     'user_id',
 ];

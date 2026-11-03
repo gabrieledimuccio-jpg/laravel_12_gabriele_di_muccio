@@ -13,7 +13,8 @@
                                     <span class="time2">Estate</span>
                                 </div>
                             </div>
-                        </div><div class="article-card  card-create-1">
+                        </div>
+                        <div class="article-card  card-create-1">
                             <img src="{{ asset('/media/dawid-tkocz-MQfDZmBkLe8-unsplash.jpg') }}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h2>Dubai</h2>
@@ -50,6 +51,12 @@
                                     <input type="text" id="best_time" name="best_time" class="form-control" placeholder="Inverno" required>
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <label for="description">Itinerario</label>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required></textarea>
+                            </div>
+                            
                             
                             <div class="form-actions mt-3">
                                 <a href="{{ route('index') }}" class="btn btn-secondary">Annulla</a>

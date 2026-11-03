@@ -14,14 +14,13 @@ public function up(): void
 Schema::create('articles', function (Blueprint $table) {
 $table->id();
 $table->string('title');
-$table->string('category');
-$table->string('preparation_time'); 
-$table->text('ingredients');        
-$table->text('preparation'); 
+$table->string('subtitle');
+$table->string('best_time'); 
+$table->string('description');
+$table->string('img');       
 $table->timestamps();
 });
 }
-
 /**
 * Reverse the migrations.
 */

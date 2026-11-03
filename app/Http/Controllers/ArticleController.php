@@ -33,19 +33,24 @@ return view('create');
 */
 public function store(Request $request)
 {
-//
-$article = Article::create([
-    'title' => $request->title,
-    'subtitle' => $request->subtitle,
-    'best_time' => $request->best_time
-]);
-if ($request->file('img')) {
-    $article->img = $request->file('img')->store('public/img');
-
-    $article->save();
+if ($request->hasFile('img')) {
+$img = $request->file('img')->store('img', 'public');
+} else {
+$img = 'media/default.jpeg'; 
 }
+
+Article::create([
+'title'       => $request->title,
+'subtitle'    => $request->subtitle,
+'best_time'   => $request->best_time,
+'description' => $request->description,
+'img'         => $img 
+]);
+
 return redirect()->back()->with('message', 'Articolo inserito con successo');
 }
+
+
 
 /**
 * Display the specified resource.
@@ -53,6 +58,7 @@ return redirect()->back()->with('message', 'Articolo inserito con successo');
 public function show(Article $article)
 {
 //
+return view('show', compact('article'));
 }
 
 /**
@@ -61,6 +67,7 @@ public function show(Article $article)
 public function edit(Article $article)
 {
 //
+return view('edit', compact('article'));
 }
 
 /**
@@ -69,6 +76,17 @@ public function edit(Article $article)
 public function update(Request $request, Article $article)
 {
 //
+$data = $request->validate([
+'title'            => 'required|string|max:255',
+'subtitle'         => 'required|string',
+'best_time'        => 'required|string',
+'description'      => 'required|string',
+'img'              => 'required|string',
+]);
+
+$article->update($data);
+
+return redirect()->route('show', $article)->with('success', 'Articolo aggiornato con successo!');
 }
 
 /**
@@ -77,5 +95,8 @@ public function update(Request $request, Article $article)
 public function destroy(Article $article)
 {
 //
+$article->delete();
+
+return redirect()->route('index')->with('success', 'Articolo eliminato con successo!');
 }
 }
