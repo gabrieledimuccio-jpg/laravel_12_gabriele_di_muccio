@@ -54,7 +54,7 @@
                             
                             <div class="form-group">
                                 <label for="description">Itinerario</label>
-                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Patria del fish & chips" required></textarea>
+                                <textarea id="description" name="description" class="form-control" rows="3" placeholder="Arrivo all'aeroporto ore 9:00" required></textarea>
                             </div>
                             
                             <h6 class="mt-2">Tags</h6>

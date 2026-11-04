@@ -33,7 +33,7 @@
                             @method('PUT')
                             <div class="mb-3">
                                 <label for="img" class="form-label">Inserisci immagine</label>
-                                <input name="img" type="file" class="form-control d-flex me-3" id="img" required>
+                                <input name="img" type="file" class="form-control d-flex me-3" id="img" value="{{ old('img', $article->img) }}">
                             </div>
                             <div class="mb-3">
                                 <span class="form-label">Immagine attuale:</span>

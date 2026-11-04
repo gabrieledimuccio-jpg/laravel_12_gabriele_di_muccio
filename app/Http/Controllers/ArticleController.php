@@ -14,13 +14,20 @@ class ArticleController extends Controller
 public function index()
 {
 //
-$articles = Article::all();
-$articles = Article::latest()->get();
+    $articles = Article::latest()->get();
 
-return view('article.index', compact('articles'));
+    return view('article.index', compact('articles'));
 
 }
 
+
+public function tag(Tag $tag){
+
+$articles = $tag->articles()->latest()->get();
+
+return view('article.index', compact('articles', 'tag'));
+
+}
 /**
 * Show the form for creating a new resource.
 */
@@ -39,23 +46,36 @@ return view('article.create', compact('tags'));
 */
 public function store(Request $request)
 {
-$article = Article::create([
-'title'       => $request->title,
-'subtitle'    => $request->subtitle,
-'best_time'   => $request->best_time,
-'description' => $request->description,
-'img'         => $request->img 
+
+$request->validate([
+    'title'       => 'required|string|max:255',
+    'subtitle'    => 'required|string',
+    'best_time'   => 'required|string',
+    'description' => 'required|string',
+    'img'         => 'nullable|image|max:2048',
 ]);
 
+
 if ($request->hasFile('img')) {
-$article->img = $request->file('img')->store('img', 'public');
+
+    $img = $request->file('img')->store('img', 'public');
 } else {
-$article->img = 'media/default.jpeg'; 
+    $img = 'media/default.jpeg'; 
 }
+
+$article = Article::create([
+    'title'       => $request->title,
+    'subtitle'    => $request->subtitle,
+    'best_time'   => $request->best_time,
+    'description' => $request->description,
+    'img'         => $img,
+]);
 
 $article->tags()->attach($request->tags);
 
+
 return redirect()->back()->with('message', 'Articolo inserito con successo');
+
 }
 
 

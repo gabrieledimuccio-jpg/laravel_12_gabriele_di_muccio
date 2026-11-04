@@ -1,8 +1,16 @@
 <x-layout>
     
-    <main class="main-content mt-5 pt-5">
+    <main class="main-content mt-5 pt-5  text-center">
         <h1 class="text-center title mt-5 pt-2"><img class="img-custom" src="{{ asset('media/palm-tree.png') }}" alt="img palma stilizzata" srcset="">LE TUE PROSSIME METE</h1>
-        
+        <div class="mb-5 mt-4">
+            @isset($tag)
+            Mete filtrate per: <span class="m-1 border border-1 border-dark rounded p-1">
+                #{{ $tag->name }}
+            </span>
+            @else
+            LE TUE PROSSIME METE
+            @endisset
+        </div>
         
         <div class="d-flex flex-wrap justify-content-center gap-4">
             
@@ -17,7 +25,9 @@
                     @if($article->tags->isNotEmpty())
                     <div class="mb-3">
                         @foreach($article->tags as $tag)
-                        <span class="badge text-bg-light">#{{ $tag->name }}</span>
+                        <a href="{{ route('tag', $tag) }}" class="badge text-bg-light text-decoration-none">
+                            #{{ $tag->name }}
+                        </a>
                         @endforeach
                     </div>
                     @endif

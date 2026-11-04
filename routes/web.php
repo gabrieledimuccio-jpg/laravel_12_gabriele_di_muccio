@@ -14,3 +14,6 @@ Route::get('/article/show/{article}',[ArticleController::class, 'show'])->name('
 Route::get('/article/edit/{article}', [ArticleController::class, 'edit'])->name('edit');
 Route::put('/article/update/{article}', [ArticleController::class, 'update'])->name('update');
 Route::delete('/article/{article}', [ArticleController::class, 'destroy'])->name('destroy');
+
+// ROUTE TAGS
+Route::get('/article/tag/{tag}', [ArticleController::class, 'tag'])->name('tag');
